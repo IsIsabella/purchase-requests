@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="1" author="IsIsabella">
+        <createTable tableName="ref_status">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="transcript" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="ref_status"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="IsIsabella">
+        <insert tableName="ref_status">
+            <column name="name" value="NEW"/>
+            <column name="transcript" value="Новый"/>
+        </insert>
+        <insert tableName="ref_status">
+            <column name="name" value="PENDING_APPROVAL"/>
+            <column name="transcript" value="На согласовании"/>
+        </insert>
+        <insert tableName="ref_status">
+            <column name="name" value="APPROVED"/>
+            <column name="transcript" value="Одобрен"/>
+        </insert>
+        <insert tableName="ref_status">
+            <column name="name" value="REJECTED"/>
+            <column name="transcript" value="Отклонен"/>
+        </insert>
+        <insert tableName="ref_status">
+            <column name="name" value="COMPLETED"/>
+            <column name="transcript" value="Завершен"/>
+        </insert>
+        <rollback>
+            <delete tableName="ref_status">
+                <where>
+                    name IN ( 'NEW',
+                    'PENDING_APPROVAL', 'APPROVED',
+                    'REJECTED', 'COMPLETED')
+                </where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="IsIsabella">
+        <tagDatabase tag="002-create-ref_status"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="1" author="IsIsabella">
+        <createTable tableName="ref_role">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="transcript" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="ref_role"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="IsIsabella">
+        <insert tableName="ref_role">
+            <column name="name" value="ADMIN"/>
+            <column name="transcript" value="Администратор"/>
+        </insert>
+        <insert tableName="ref_role">
+            <column name="name" value="MANAGER"/>
+            <column name="transcript" value="Менеджер"/>
+        </insert>
+        <insert tableName="ref_role">
+            <column name="name" value="EMPLOYEE"/>
+            <column name="transcript" value="Сотрудник"/>
+        </insert>
+        <rollback>
+            <delete tableName="ref_role">
+                <where>name IN ('ADMIN', 'MANAGER', 'EMPLOYEE')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="IsIsabella">
+        <tagDatabase tag="001-create-ref_role"/>
+    </changeSet>
+
+</databaseChangeLog>
