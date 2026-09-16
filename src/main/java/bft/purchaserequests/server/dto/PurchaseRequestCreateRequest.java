@@ -11,7 +11,7 @@ import javax.annotation.concurrent.Immutable;
  * <p>Используется вместо передачи JPA-сущности {@link PurchaseRequest}.</p>
  *
  * @param name        название заявки, не должно быть пустым
- * @param description описание заявки, может бытьnull
+ * @param description описание заявки, может быть null
  * @param amount      сумма закупки, должна быть положительным числом
  */
 @Immutable

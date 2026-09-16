@@ -13,20 +13,20 @@ import org.springframework.stereotype.Component;
 @ThreadSafe
 public class PurchaseRequestSecurity {
 
-  private final PurchaseRequestRepository repository;
+  private final PurchaseRequestRepository purchaseRequestRepository;
 
   /**
    * Создаёт компонент проверки прав
    *
-   * @param repository репозиторий заявок
+   * @param purchaseRequestRepository репозиторий заявок
    * @throws NullPointerException если входной параметр null
    */
-  public PurchaseRequestSecurity(PurchaseRequestRepository repository) {
-    if (repository == null) {
+  public PurchaseRequestSecurity(PurchaseRequestRepository purchaseRequestRepository) {
+    if (purchaseRequestRepository == null) {
       throw new NullPointerException("repository");
     }
 
-    this.repository = repository;
+    this.purchaseRequestRepository = purchaseRequestRepository;
   }
 
   /**
@@ -38,7 +38,7 @@ public class PurchaseRequestSecurity {
    * то возвращает false
    */
   public boolean isOwner(Integer requestId, Authentication authentication) {
-    return this.repository.findById(requestId)
+    return this.purchaseRequestRepository.findById(requestId)
         .map(request -> request.getCreatedBy().getUsername().equals(authentication.getName()))
         .orElse(false);
   }
@@ -51,7 +51,7 @@ public class PurchaseRequestSecurity {
    * @return true, если заявка принадлежит пользователю и находится в статусе NEW
    */
   public boolean isOwnerAndEditable(Integer requestId, Authentication authentication) {
-    return this.repository.findById(requestId)
+    return this.purchaseRequestRepository.findById(requestId)
         .map(request -> request.getCreatedBy().getUsername().equals(authentication.getName())
             && StatusName.NEW.getName().equals(request.getStatus().getName()))
         .orElse(false);

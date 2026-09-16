@@ -136,7 +136,7 @@ public class PurchaseRequestRestController {
    *
    * @param status         название статуса
    * @param authentication текущая аутентификация
-   * @return список подходящих заявок (для EMPLOYEE — только среди своих)
+   * @return список подходящих заявок
    * @throws NullPointerException если входной параметр null
    */
   @GetMapping("/search")

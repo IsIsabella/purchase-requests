@@ -36,7 +36,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     this.setJustifyContentMode(JustifyContentMode.CENTER);
 
     this.login.setI18n(this.createRussianI18n());
-    // функции восстановления пароля нет — не показываем ссылку
+    // функции восстановления пароля нет - не показываем ссылку
     this.login.setForgotPasswordButtonVisible(false);
     this.login.setAction("login");
 
